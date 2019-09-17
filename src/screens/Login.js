@@ -1,5 +1,5 @@
 import React from 'react';
-import { StyleSheet, Text, View, Button } from 'react-native';
+import { StyleSheet, Text, View, Button, Image } from 'react-native';
 import { LoginForm } from '../components/LoginForm';
 import { connect } from 'react-redux';
 
@@ -17,10 +17,16 @@ class LoginScreen extends React.Component {
     const { navigate } = this.props.navigation;
     return (
       <View style={{ flex: 1, flexDirection: 'column' }}>
-        <View
-          style={{ flex: 1, height: 100, backgroundColor: 'powderblue' }}
-        ></View>
-        <View style={{ flex: 3, backgroundColor: 'steelblue' }}>
+        <View style={{ flex: 2, height: 100, backgroundColor: '#1e32bd' }}>
+          <Image
+            style={{ width: 200, height: 200 }}
+            source={{
+              uri: 'https://facebook.github.io/react-native/img/tiny_logo.png'
+            }}
+            alt="IMAGE NOT LOADING"
+          />
+        </View>
+        <View style={{ flex: 4, backgroundColor: '#FFF', padding: 10 }}>
           <LoginForm></LoginForm>
         </View>
       </View>
