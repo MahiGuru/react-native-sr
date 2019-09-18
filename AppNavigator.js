@@ -1,6 +1,6 @@
 import { createStackNavigator } from 'react-navigation-stack';
-import LoginScreen from './src/screens/Login';
-import ScanScreen from './src/screens/Scan';
+import LoginScreen from './src/screens/LoginScreen';
+import ScanScreen from './src/screens/ScanScreen';
 import { createAppContainer } from 'react-navigation';
 
 console.disableYellowBox = true;

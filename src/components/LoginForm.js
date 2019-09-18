@@ -1,75 +1,81 @@
 // Formik x React Native example
 import React from 'react';
-import { Button, TextInput, View, StyleSheet } from 'react-native';
-import { Formik } from 'formik';
+import {
+  SafeAreaView,
+  TextInput,
+  Text,
+  Button,
+  ActivityIndicator,
+  StyleSheet
+} from 'react-native';
 
+import { Formik, Field } from 'formik';
+import PrimaryButton from '../utils/Button';
+import * as yup from 'yup';
+import SrTextInput from '../utils/SrTextInput';
+
+
+const validationSchema = yup.object().shape({
+  url: yup.string().required().label('Url'),
+  username: yup.string().required().label('Username').min(2, 'Seems a bit short').max(10, 'We prefer insecure system'),
+  password: yup.string().required().label('Password').min(2, 'Seems a bit short').max(10, 'We prefer insecure system')
+})
 export const LoginForm = props => {
-  const [url, onSetUrl] = React.useState('');
-  const [username, onSetUsername] = React.useState('');
-  const [password, onSetPassword] = React.useState('');
   return (
+    <SafeAreaView style={{ marginTop: 10 }}>
     <Formik
-      initialValues={{ email: '' }}
-      onSubmit={values => console.log(values)}
+      initialValues={{ url: 'agasga', username: 'asgasgasg', password: 'asgasgasg' }}
+      onSubmit={(values,actions) => { 
+                    alert(JSON.stringify(values));
+                    setTimeout(() => {
+                      actions.setSubmitting(false);
+                      props.navigateTo();
+                    }, 1000);
+                  }
+      }
+      validationSchema={validationSchema}
     >
-      {props => (
-        <View style={{ margin: 5 }}>
-          <TextInput
-            inlineImageLeft="search_icon"
-            autoFocus={false}
-            style={{
-              borderColor: 'gray',
-              borderWidth: 1,
-              padding: 10,
-              marginBottom: 8
-            }}
-            onChangeText={text => onSetUrl(text)}
-            value={url}
+      {formikProps  => (
+        <React.Fragment> 
+          <SrTextInput
             placeholder="Url"
-            editable
-            maxLength={40}
-          />
-          <TextInput
-            autoFocus={false}
-            style={{
-              borderColor: 'gray',
-              borderWidth: 1,
-              padding: 10,
-              marginBottom: 8
-            }}
-            onChangeText={text => onSetUsername(text)}
-            value={username}
+            formikProps={formikProps}
+            formikKey="url"
+            style={{/** Custom styles */}}
+            /*autoFocus*/
+           />
+           <SrTextInput
             placeholder="Username"
-            editable
-            maxLength={40}
-          />
-          <TextInput
-            autoFocus={false}
-            style={{
-              borderColor: 'gray',
-              borderWidth: 1,
-              padding: 10,
-              marginBottom: 8
-            }}
-            onChangeText={text => onSetPassword(text)}
-            value={password}
+            formikProps={formikProps}
+            formikKey="username"
+           />
+           <SrTextInput
             placeholder="Password"
-            editable
-            maxLength={40}
-          />
-          <Button
-            title="Login"
-            color="#1e32bd"
-            onPress={() => Alert.alert('Button with adjusted color pressed')}
-          />
-        </View>
+            formikProps={formikProps}
+            formikKey="password"
+           /> 
+
+           {formikProps.isSubmitting ? (
+            <ActivityIndicator />
+          ) : (
+            <PrimaryButton title="Login"
+                onPress={formikProps.handleSubmit} 
+                style={{ marginHorizontal: 15, paddingVertical: 30, marginTop:20 }}
+                textStyle={{ /* styles for button title */ }} />
+          )}
+
+        </React.Fragment>
       )}
     </Formik>
+    </SafeAreaView>
   );
 };
 
 const styles = StyleSheet.create({
   btnLogin: {
     padding: '10px'
+  },
+  textField: {
+    
   }
 });
