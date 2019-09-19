@@ -1,7 +1,9 @@
 import React from 'react';
 import { StyleSheet, Text, View, Button, Image } from 'react-native';
 import { LoginForm } from '../components/LoginForm';
-import { connect } from 'react-redux'; 
+import { connect } from 'react-redux';
+
+import PrimaryButton from '../utils/Button';
 
 class LoginScreen extends React.Component {
   constructor(props) {
@@ -13,23 +15,38 @@ class LoginScreen extends React.Component {
   setModalVisible(visible) {
     this.setState({ modalVisible: visible });
   }
-  
+
   render() {
     const { navigate } = this.props.navigation;
     const navigateToScreen = () => {
-      navigate('Scan', {name: 'Jane'})
-    }
+      navigate('Scan', { name: 'Jane' });
+    };
     return (
       <View style={{ flex: 1, flexDirection: 'column' }}>
         <View style={{ flex: 1, height: 100, backgroundColor: '#0564A4' }}>
-          <Image source={require('../assets/images/logo_planon.jpg')} resizeMode='contain'
-          style={{
-            maxHeight: '100%',
-            maxWidth: '100%'
-            }}  />
+          <Image
+            source={require('../assets/images/logo_planon.jpg')}
+            resizeMode="contain"
+            style={{
+              maxHeight: '100%',
+              maxWidth: '100%'
+            }}
+          />
         </View>
         <View style={{ flex: 3, backgroundColor: '#FFF', padding: 10 }}>
-          <LoginForm navigateTo={() => this.props.navigation.navigate('Scan')}></LoginForm>
+          <LoginForm
+            navigateTo={() => this.props.navigation.navigate('Scan')}
+          ></LoginForm>
+          <PrimaryButton
+            title="Camera"
+            onPress={() => this.props.navigation.navigate('Camera')}
+            style={{ marginHorizontal: 15, paddingVertical: 30, marginTop: 20 }}
+            textStyle={
+              {
+                /* styles for button title */
+              }
+            }
+          />
         </View>
       </View>
     );
