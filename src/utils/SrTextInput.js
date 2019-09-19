@@ -13,10 +13,7 @@ const SrTextInput = ({label, formikKey, formikProps, style, ...rest}) => {
         padding: 15,
         paddingHorizontal: 25,
         marginBottom: 3,
-        borderRadius:50,
-        webkitBoxShadow: "1px 3px 1px #9E9E9E",
-        mozBoxShadow: "1px 3px 1px #9E9E9E",
-        boxShadow: "1px 3px 1px #9E9E9E"
+        borderRadius:50
     }
     if (formikProps.touched[formikKey] && formikProps.errors[formikKey]) {
         inputStyles.borderColor = 'red';

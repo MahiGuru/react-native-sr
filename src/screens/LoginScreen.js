@@ -1,8 +1,7 @@
 import React from 'react';
 import { StyleSheet, Text, View, Button, Image } from 'react-native';
 import { LoginForm } from '../components/LoginForm';
-import { connect } from 'react-redux';
-import logoPlanonImg from '../assets/images/logo_planon.jpg';
+import { connect } from 'react-redux'; 
 
 class LoginScreen extends React.Component {
   constructor(props) {

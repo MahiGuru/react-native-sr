@@ -25,8 +25,7 @@ export const LoginForm = props => {
     <SafeAreaView style={{ marginTop: 10 }}>
     <Formik
       initialValues={{ url: 'agasga', username: 'asgasgasg', password: 'asgasgasg' }}
-      onSubmit={(values,actions) => { 
-                    alert(JSON.stringify(values));
+      onSubmit={(values,actions) => {  
                     setTimeout(() => {
                       actions.setSubmitting(false);
                       props.navigateTo();
