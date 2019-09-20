@@ -35,7 +35,7 @@ class LoginScreen extends React.Component {
         </View>
         <View style={{ flex: 3, backgroundColor: '#FFF', padding: 10 }}>
           <LoginForm
-            navigateTo={() => this.props.navigation.navigate('Scan')}
+            navigateTo={() => this.props.navigation.navigate({ routeName: 'Maintenance'})}
           ></LoginForm>
           <PrimaryButton
             title="Camera"

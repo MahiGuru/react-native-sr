@@ -1,20 +1,13 @@
 import React, { Component } from 'react';
 import { Text, View, StyleSheet, Button, Dimensions } from 'react-native';
-import Constants from 'expo-constants';
 import * as Permissions from 'expo-permissions';
 
 import { BarCodeScanner } from 'expo-barcode-scanner';
 
 import {
-  Container,
-  Header,
-  Tab,
-  Tabs,
-  TabHeading,
-  Icon,
-  ScrollableTab
+  Container
 } from 'native-base';
-import { red } from 'ansi-colors';
+import SrTabs from '../components/Tabs';
 
 class ScanScreen extends Component {
   constructor(props) {
@@ -67,49 +60,6 @@ class ScanScreen extends Component {
           )}
         </Container>
         <Container>
-          <Tabs
-            tabBarPosition={'bottom'}
-            locked
-            tabBarUnderlineStyle={{ backgroundColor: 'transparent', height: 5 }}
-            style={{ height: 140 }}
-          >
-            <Tab
-              style={styles.tabHeading}
-              heading={
-                <TabHeading style={{ flex: 1, flexDirection: 'column' }}>
-                  <Icon name="camera" />
-                  <Text style={{ color: 'white' }}>Maintenance</Text>
-                </TabHeading>
-              }
-            >
-              <Text>Hello - 1 </Text>
-            </Tab>
-            <Tab
-              heading="Tab2"
-              style={styles.tabHeading}
-              activeTabStyle={{ backgroundColor: 'red' }}
-              heading={
-                <TabHeading style={{ flex: 1, flexDirection: 'column' }}>
-                  <Icon name="services" />
-                  <Text style={{ color: 'white' }}>Services</Text>
-                </TabHeading>
-              }
-            >
-              <Text>Hello - 2</Text>
-            </Tab>
-            <Tab
-              heading="Tab3"
-              style={styles.tabHeading}
-              heading={
-                <TabHeading style={{ flex: 1, flexDirection: 'column' }}>
-                  <Icon name="camera" />
-                  <Text style={{ color: 'white' }}>Journal</Text>
-                </TabHeading>
-              }
-            >
-              <Text>Hello - 3</Text>
-            </Tab>
-          </Tabs>
         </Container>
       </Container>
     );
@@ -128,14 +78,6 @@ const styles = StyleSheet.create({
     paddingLeft: 0,
     paddingStart: 0,
     padding: 0
-  },
-  tabHeading: {
-    backgroundColor: 'white',
-    height: 80
-  },
-  tabBarUnderline: {
-    backgroundColor: '#29B6F6',
-    height: 3
   }
 });
 export default ScanScreen;

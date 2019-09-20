@@ -10,6 +10,7 @@ import { rootReducer } from './src/reducers/RootReducer';
 const AppContainer = createAppContainer(AppNavigator);
 const store = createStore(rootReducer);
 export default class App extends React.Component {
+   
   render() {
     return (
       <Provider store={store}>

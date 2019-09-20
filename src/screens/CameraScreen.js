@@ -27,10 +27,13 @@ import { red } from 'ansi-colors';
 class ScanScreen extends Component {
   constructor(props) {
     super(props);
-    this.state = {};
+    this.state = {
+      cameraImage: null
+    };
     this.snap = this.snap.bind(this);
   }
   state = {
+
     hasCameraPermission: null,
     type: Camera.Constants.Type.back,
     scanned: false
@@ -109,7 +112,8 @@ class ScanScreen extends Component {
                         quality: 0.3,
                         base64: true,
                         onPictureSaved: img => {
-                          console.log('ÏMGGGGG', img);
+                          this.setState({cameraImage: 'data:image/jpeg;base64,' + img.base64})
+                          console.log('ÏMGGGGG', img.base64);
                           return img;
                         }
                       });
