@@ -1,39 +1,18 @@
 import React, { Component } from 'react';
-import {
-  Text,
-  View,
-  StyleSheet,
-  Button,
-  Dimensions,
-  TouchableOpacity
-} from 'react-native';
-import Constants from 'expo-constants';
+import { Text, View, StyleSheet, TouchableOpacity } from 'react-native';
 import * as Permissions from 'expo-permissions';
 
-import { BarCodeScanner } from 'expo-barcode-scanner';
 import { Camera } from 'expo-camera';
 
-import {
-  Container,
-  Header,
-  Tab,
-  Tabs,
-  TabHeading,
-  Icon,
-  ScrollableTab
-} from 'native-base';
-import { red } from 'ansi-colors';
-
-class ScanScreen extends Component {
+class CameraScreen extends Component {
   constructor(props) {
     super(props);
     this.state = {
       cameraImage: null
     };
-    this.snap = this.snap.bind(this);
+    this.snap = this.snapPic.bind(this);
   }
   state = {
-
     hasCameraPermission: null,
     type: Camera.Constants.Type.back,
     scanned: false
@@ -42,14 +21,19 @@ class ScanScreen extends Component {
   async componentDidMount() {
     this.getPermissionsAsync();
   }
-
+  takePicture = async () => {
+    this.camera.takePictureAsync({ skipProcessing: true }).then(data => {
+      console.log(data);
+    });
+  };
   getPermissionsAsync = async () => {
     const { status } = await Permissions.askAsync(Permissions.CAMERA);
     this.setState({ hasCameraPermission: status === 'granted' });
   };
-  snap = async () => {
+  snapPic = async () => {
     if (this.camera) {
       let photo = await this.camera.takePictureAsync();
+      console.log('SNAP', photo);
     }
   };
   render() {
@@ -105,21 +89,7 @@ class ScanScreen extends Component {
                     alignSelf: 'flex-end',
                     alignItems: 'center'
                   }}
-                  onPress={async () => {
-                    if (this.camera) {
-                      console.log('inside camera');
-                      let photo = await this.camera.takePictureAsync({
-                        quality: 0.3,
-                        base64: true,
-                        onPictureSaved: img => {
-                          this.setState({cameraImage: 'data:image/jpeg;base64,' + img.base64})
-                          console.log('ÏMGGGGG', img.base64);
-                          return img;
-                        }
-                      });
-                      console.log('THIS PGOTO', photo);
-                    }
-                  }}
+                  onPress={() => this.takePicture()}
                 >
                   <Text
                     style={{ fontSize: 18, marginBottom: 10, color: 'white' }}
@@ -130,9 +100,6 @@ class ScanScreen extends Component {
               </View>
             </View>
           </Camera>
-        </View>
-        <View style={{ flex: 1 }}>
-          <Text>HELLOOO</Text>
         </View>
       </View>
     );
@@ -157,4 +124,4 @@ const styles = StyleSheet.create({
     height: 3
   }
 });
-export default ScanScreen;
+export default CameraScreen;

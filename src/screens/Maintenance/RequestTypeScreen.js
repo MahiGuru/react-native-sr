@@ -1,14 +1,35 @@
 import React, { Component } from 'react';
-import { View, Text } from 'native-base';
+import { View, Text, Container } from 'native-base';
+import PrimaryButton from '../../utils/Button';
 
 class RequestTypeScreen extends Component {
-    render() {
-        return (
-            <View>
-                 <Text>Request Type</Text>
-            </View>
-        );
-    }
+  render() {
+    return (
+      <View style={{ flex: 1, justifyContent: 'flex-start' }}>
+        <Text>RequestTypeScreen!</Text>
+        <Container
+          style={{
+            flex: 1
+          }}
+        >
+          <PrimaryButton
+            title="GO TO Task"
+            onPress={() => this.props.navigation.navigate('Task')}
+            style={{
+              marginHorizontal: 15,
+              paddingVertical: 30,
+              marginTop: 20
+            }}
+            textStyle={
+              {
+                /* styles for button title */
+              }
+            }
+          />
+        </Container>
+      </View>
+    );
+  }
 }
 
 export default RequestTypeScreen;

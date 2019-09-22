@@ -4,10 +4,9 @@ import * as Permissions from 'expo-permissions';
 
 import { BarCodeScanner } from 'expo-barcode-scanner';
 
-import {
-  Container
-} from 'native-base';
+import { Container } from 'native-base';
 import SrTabs from '../components/Tabs';
+import PrimaryButton from '../utils/Button';
 
 class ScanScreen extends Component {
   constructor(props) {
@@ -60,6 +59,16 @@ class ScanScreen extends Component {
           )}
         </Container>
         <Container>
+          <PrimaryButton
+            title="GO TO REQUEST TYPES"
+            onPress={() => this.props.navigation.navigate('TakePicture')}
+            style={{ marginHorizontal: 15, paddingVertical: 30, marginTop: 20 }}
+            textStyle={
+              {
+                /* styles for button title */
+              }
+            }
+          />
         </Container>
       </Container>
     );
