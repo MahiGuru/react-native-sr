@@ -2,8 +2,8 @@ import React from 'react';
 import { StyleSheet, Text, View, Button, Image } from 'react-native';
 import { LoginForm } from '../components/LoginForm';
 import { connect } from 'react-redux';
-
-import PrimaryButton from '../utils/Button';
+import { bindActionCreators } from 'redux';
+import { user_action_creator } from "../actions/user.actions";
 
 class LoginScreen extends React.Component {
   constructor(props) {
@@ -14,6 +14,17 @@ class LoginScreen extends React.Component {
   };
   setModalVisible(visible) {
     this.setState({ modalVisible: visible });
+  }
+  componentDidMount(){
+    //action creator called using bindactioncreator
+    this.props.getUsers();
+    
+    setTimeout(() => {
+      console.log("INSIDE STATE ");
+      console.log(this.state.users);
+      console.log("INSIDE STATE END");
+    }, 2000)
+    
   }
 
   render() {
@@ -40,6 +51,9 @@ class LoginScreen extends React.Component {
             }
           ></LoginForm> 
         </View>
+        <View style={{flex: 1}}> 
+            <Text>Users Length {this.props.users ? JSON.stringify(this.props.users.data) : 0}</Text>
+        </View>
       </View>
     );
   }
@@ -52,11 +66,19 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center'
   }
-});
+}); 
+ 
 
-const mapStateToProps = state => {
-  const { friends } = state;
-  return { friends };
-};
+const mapStateToProps = ({users}) => {
+  console.log(users)
+  return { 
+    users
+  }
+}
 
-export default connect(mapStateToProps)(LoginScreen);
+const mapDispatchToProps = (dispatch) => bindActionCreators({
+      getUsers: user_action_creator
+  }, dispatch)
+
+
+export default connect(mapStateToProps, mapDispatchToProps)(LoginScreen);

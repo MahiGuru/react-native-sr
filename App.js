@@ -1,15 +1,12 @@
 import React from 'react';
 import AppNavigator from './src/stacks/AppNavigator';
-import { Provider } from 'react-redux';
-import { createStore } from 'redux';
-import { createAppContainer } from 'react-navigation';
-import { rootReducer } from './src/reducers/RootReducer';
- 
+import { Provider } from 'react-redux'; 
+import { createAppContainer } from 'react-navigation'; 
+import store from './src/store/store';
 /**
  * For Initialization
  */
 const AppContainer = createAppContainer(AppNavigator);
-const store = createStore(rootReducer);
 export default class App extends React.Component {
    
   render() {
