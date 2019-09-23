@@ -20,11 +20,6 @@ class RequestTypeScreen extends Component {
               paddingVertical: 30,
               marginTop: 20
             }}
-            textStyle={
-              {
-                /* styles for button title */
-              }
-            }
           />
         </Container>
       </View>

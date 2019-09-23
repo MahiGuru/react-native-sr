@@ -1,9 +1,10 @@
 import React from 'react';
-import AppNavigator from './AppNavigator';
+import AppNavigator from './src/stacks/AppNavigator';
 import { Provider } from 'react-redux';
 import { createStore } from 'redux';
 import { createAppContainer } from 'react-navigation';
 import { rootReducer } from './src/reducers/RootReducer';
+ 
 /**
  * For Initialization
  */
@@ -13,7 +14,7 @@ export default class App extends React.Component {
    
   render() {
     return (
-      <Provider store={store}>
+      <Provider store={store}> 
         <AppContainer />
       </Provider>
     );

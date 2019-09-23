@@ -22,8 +22,8 @@ class CameraScreen extends Component {
     this.getPermissionsAsync();
   }
   takePicture = async () => {
-    this.camera.takePictureAsync({ skipProcessing: true }).then(data => {
-      console.log(data);
+    this.camera.takePictureAsync({base64: true, quality: 0.3}).then(data => {
+      this.props.cameraPictureUpdate(data);
     });
   };
   getPermissionsAsync = async () => {
@@ -32,7 +32,7 @@ class CameraScreen extends Component {
   };
   snapPic = async () => {
     if (this.camera) {
-      let photo = await this.camera.takePictureAsync();
+      let photo = await this.camera.takePictureAsync({base64: true});
       console.log('SNAP', photo);
     }
   };

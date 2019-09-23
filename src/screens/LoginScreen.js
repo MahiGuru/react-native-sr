@@ -38,17 +38,7 @@ class LoginScreen extends React.Component {
             navigateTo={() =>
               this.props.navigation.navigate({ routeName: 'Layout' })
             }
-          ></LoginForm>
-          <PrimaryButton
-            title="Camera"
-            onPress={() => this.props.navigation.navigate('Camera')}
-            style={{ marginHorizontal: 15, paddingVertical: 30, marginTop: 20 }}
-            textStyle={
-              {
-                /* styles for button title */
-              }
-            }
-          />
+          ></LoginForm> 
         </View>
       </View>
     );

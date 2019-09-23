@@ -24,7 +24,10 @@
       "**/*"
     ],
     "ios": {
-      "supportsTablet": true
+      "bundleIdentifier": "com.planon.smartrequest"
+    },
+    "android": {
+      "package": "com.planon.smartrequest"
     },
     "description": "zxd",
     "githubUrl": "https://github.com/MahiGuru/react-native-sr"

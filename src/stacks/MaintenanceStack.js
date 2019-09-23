@@ -1,9 +1,9 @@
-import { createStackNavigator } from 'react-navigation-stack';
-import ScanScreen from './src/screens/ScanScreen';
-import RequestTypeScreen from './src/screens/Maintenance/RequestTypeScreen';
-import TaskScreen from './src/screens/Maintenance/TaskScreen';
-import EquipmentScreen from './src/screens/Maintenance/EquipmentScreen';
-import TakePictureScreen from './src/screens/Maintenance/TakePictureScreen';
+import { createStackNavigator } from 'react-navigation-stack'; 
+import RequestTypeScreen from '../screens/Maintenance/RequestTypeScreen';
+import TaskScreen from '../screens/Maintenance/TaskScreen';
+import EquipmentScreen from '../screens/Maintenance/EquipmentScreen';
+import TakePictureScreen from '../screens/Maintenance/TakePictureScreen';
+import ScanScreen from '../screens/Maintenance/ScanScreen';
 
 console.disableYellowBox = true;
 
