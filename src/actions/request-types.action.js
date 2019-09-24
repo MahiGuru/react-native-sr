@@ -1,9 +1,8 @@
 import axios from 'axios';
-import store from "../store/store";
 
-export const user_action_creator = () => {
+export const request_type_action_creator = () => {
     return (dispatch, getState) => {
-        return axios.get('https://reqres.in/api/users/1')
+        return axios.get('https://reqres.in/api/users/2')
                     .then(response => {
                         dispatch(fetch_users(response.data))
                     })

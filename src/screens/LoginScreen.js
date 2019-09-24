@@ -17,14 +17,7 @@ class LoginScreen extends React.Component {
   }
   componentDidMount(){
     //action creator called using bindactioncreator
-    this.props.getUsers();
-    
-    setTimeout(() => {
-      console.log("INSIDE STATE ");
-      console.log(this.state.users);
-      console.log("INSIDE STATE END");
-    }, 2000)
-    
+    this.props.getUsers();    
   }
 
   render() {
@@ -51,8 +44,19 @@ class LoginScreen extends React.Component {
             }
           ></LoginForm> 
         </View>
-        <View style={{flex: 1}}> 
-            <Text>Users Length {this.props.users ? JSON.stringify(this.props.users.data) : 0}</Text>
+        <View style={{flex: 2}}> 
+            <Text>USER INFO</Text>
+            {this.props.users ? (
+              <View>
+                <Text>{this.props.users.email}</Text>
+                <Text>
+                  {this.props.users.first_name}
+                  {this.props.users.last_name}
+                </Text>
+              </View>
+            ) : null} 
+            
+            
         </View>
       </View>
     );
@@ -69,10 +73,10 @@ const styles = StyleSheet.create({
 }); 
  
 
-const mapStateToProps = ({users}) => {
-  console.log(users)
+const mapStateToProps = (state) => {
+  console.log('requestTypes', state);
   return { 
-    users
+    users: state.users.data
   }
 }
 
