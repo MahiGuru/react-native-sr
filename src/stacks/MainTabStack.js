@@ -1,10 +1,11 @@
-import { createStackNavigator } from 'react-navigation-stack';
+import React from 'react';
 import { createBottomTabNavigator } from 'react-navigation-tabs'; 
-import RequestTypeScreen from '../screens/Maintenance/RequestTypeScreen';
 import TaskScreen from '../screens/Maintenance/TaskScreen';
 import EquipmentScreen from '../screens/Maintenance/EquipmentScreen';
 import MaintenanceStack from './MaintenanceStack';
 import ScanScreen from '../screens/Maintenance/ScanScreen';
+
+import { Ionicons, FontAwesome, MaterialCommunityIcons, Foundation } from '@expo/vector-icons';
 
 console.disableYellowBox = true;
 
@@ -12,25 +13,29 @@ const MainTabStack = createBottomTabNavigator({
   Maintenance: {
     screen: MaintenanceStack,
     navigationOptions: {
-      tabBarLabel: 'Maintenance'
+      tabBarLabel: 'Maintenance',
+      tabBarIcon: () => <FontAwesome name='wrench' size={25} color='red' />
     }
   },
   Services: {
     screen: ScanScreen,
     navigationOptions: {
-      tabBarLabel: 'Services'
+      tabBarLabel: 'Services',
+      tabBarIcon: () => <MaterialCommunityIcons name='settings-outline' size={25} color='red' />
     }
   },
   Journal: {
     screen: TaskScreen,
     navigationOptions: {
-      tabBarLabel: 'Journal'
+      tabBarLabel: 'Journal',
+      tabBarIcon: () => <Foundation name='thumbnails' size={25} color='red' />
     }
   },
   Profile: {
     screen: EquipmentScreen,
     navigationOptions: {
-      tabBarLabel: 'Profile'
+      tabBarLabel: 'Profile',
+      tabBarIcon: () => <FontAwesome name='user' size={25} color='red' />
     }
   }
 });
