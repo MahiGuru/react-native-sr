@@ -41,7 +41,7 @@ const MaintenanceStack = createStackNavigator(
     }
   },
   {
-    initialRouteName: 'Scan',
+    initialRouteName: 'RequestType',
     headerMode: 'screen',
     mode: 'modal',
     defaultNavigationOptions: {

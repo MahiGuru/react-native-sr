@@ -1,6 +1,6 @@
 const initialState = {};
 
-export default userReducer = (state = initialState, action) => {
+export default authenticateReducer = (state = initialState, action) => {
   switch (action.type) {
     case "FETCH_VOCABULARY":
       return { ...state, ...action.data };

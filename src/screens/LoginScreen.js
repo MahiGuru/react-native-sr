@@ -3,8 +3,9 @@ import { StyleSheet, Text, View, Button, Image } from 'react-native';
 import { LoginForm } from '../components/LoginForm';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import { user_action_creator } from "../actions/user.actions";
+import { autheticate_action_creator } from "../actions/authenticate.actions";
 
+import Storage from '../store/storage';
 class LoginScreen extends React.Component {
   constructor(props) {
     super(props);
@@ -16,9 +17,10 @@ class LoginScreen extends React.Component {
     this.setState({ modalVisible: visible });
   }
   componentDidMount(){
-    //action creator called using bindactioncreator
-    this.props.getUsers();    
+    Storage.clearAll();
+    //REDUX: action creator called
   }
+  
 
   render() {
     const { navigate } = this.props.navigation;
@@ -39,15 +41,18 @@ class LoginScreen extends React.Component {
         </View>
         <View style={{ flex: 3, backgroundColor: '#FFF', padding: 10 }}>
           <LoginForm
-            navigateTo={() =>
-              this.props.navigation.navigate({ routeName: 'Layout' })
+            navigateTo={async () => {
+                await this.props.login();
+                console.log('HELLLLLLLLOOOOOOO ', this.props.vocabulary);
+                this.props.navigation.navigate({ routeName: 'Layout' });
+              }
             }
           ></LoginForm> 
         </View>
         <View style={{flex: 2}}> 
             <Text>USER INFO</Text>
             {this.props.users ? (
-              <View>
+              <View> 
                 <Text>{this.props.users.email}</Text>
                 <Text>
                   {this.props.users.first_name}
@@ -76,12 +81,12 @@ const styles = StyleSheet.create({
 const mapStateToProps = (state) => {
   console.log('requestTypes', state);
   return { 
-    users: state.users.data
+    vocabulary: state.authenticate
   }
 }
 
 const mapDispatchToProps = (dispatch) => bindActionCreators({
-      getUsers: user_action_creator
+      login: autheticate_action_creator
   }, dispatch)
 
 

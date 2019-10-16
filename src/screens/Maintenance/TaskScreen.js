@@ -1,8 +1,18 @@
 import React, { Component } from 'react';
 import { View, Text } from 'native-base';
 import PrimaryButton from '../../utils/Button';
+import { task_action_creator } from '../../actions/task.actions';
+import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
 
 class TaskScreen extends Component {
+  constructor(props){
+    super(props);
+  }
+
+  componentDidMount(){
+    this.props.getTasks();
+  }
   render() {
     return (
       <View style={{ flex: 1, justifyContent: 'flex-start' }}>
@@ -24,6 +34,21 @@ class TaskScreen extends Component {
       </View>
     );
   }
-}
+} 
+const mapStateToProps = (state) => {
+  console.log('tasks', state)
+  return {
+    tasks: state
+  }
+};
+const mapDispatchToProps = (dispatch) => {
+  return bindActionCreators(
+    {
+      getTasks: task_action_creator
+    },
+    dispatch
+  );
+};
 
-export default TaskScreen;
+
+export default connect(mapStateToProps, mapDispatchToProps)(TaskScreen);

@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import { View, Text, Container } from "native-base";
 import PrimaryButton from "../../utils/Button";
-import { request_type_action_creator } from "../../actions/request-types.action";
+import { request_type_action_creator } from "../../actions/request-types.actions";
 import { bindActionCreators } from "redux";
 import { connect } from "react-redux";
 
@@ -19,13 +19,7 @@ class RequestTypeScreen extends Component {
           }}
         >
           {this.props.requestTypes ? (
-            <View>
-              <Text>{this.props.requestTypes.email}</Text>
-              <Text>
-                {this.props.requestTypes.first_name}
-                {this.props.requestTypes.last_name}
-              </Text>
-            </View>
+             <Text>HELLO ......</Text>
           ) : null}
 
           <Text>USER INFO : {JSON.stringify(this.props.users)}</Text>
@@ -54,6 +48,7 @@ class RequestTypeScreen extends Component {
 }
 
 function mapStateToProps({ requestTypes, users }) {
+  console.log(requestTypes, users);
   return {
     requestTypes: requestTypes.data
   };
