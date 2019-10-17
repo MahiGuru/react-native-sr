@@ -43,26 +43,12 @@ class LoginScreen extends React.Component {
           <LoginForm
             navigateTo={async () => {
                 await this.props.login();
-                console.log('HELLLLLLLLOOOOOOO ', this.props.vocabulary);
                 this.props.navigation.navigate({ routeName: 'Layout' });
               }
             }
           ></LoginForm> 
         </View>
-        <View style={{flex: 2}}> 
-            <Text>USER INFO</Text>
-            {this.props.users ? (
-              <View> 
-                <Text>{this.props.users.email}</Text>
-                <Text>
-                  {this.props.users.first_name}
-                  {this.props.users.last_name}
-                </Text>
-              </View>
-            ) : null} 
-            
-            
-        </View>
+        
       </View>
     );
   }

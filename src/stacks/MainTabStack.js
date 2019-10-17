@@ -14,28 +14,28 @@ const MainTabStack = createBottomTabNavigator({
     screen: MaintenanceStack,
     navigationOptions: {
       tabBarLabel: 'Maintenance',
-      tabBarIcon: () => <FontAwesome name='wrench' size={25} color='red' />
+      tabBarIcon: () => <FontAwesome name='wrench' size={25} color='#0564A4' />
     }
   },
   Services: {
     screen: ScanScreen,
     navigationOptions: {
       tabBarLabel: 'Services',
-      tabBarIcon: () => <MaterialCommunityIcons name='settings-outline' size={25} color='red' />
+      tabBarIcon: () => <MaterialCommunityIcons name='settings-outline' size={25} color='#0564A4' />
     }
   },
   Journal: {
     screen: TaskScreen,
     navigationOptions: {
       tabBarLabel: 'Journal',
-      tabBarIcon: () => <Foundation name='thumbnails' size={25} color='red' />
+      tabBarIcon: () => <Foundation name='thumbnails' size={25} color='#0564A4' />
     }
   },
   Profile: {
     screen: EquipmentScreen,
     navigationOptions: {
       tabBarLabel: 'Profile',
-      tabBarIcon: () => <FontAwesome name='user' size={25} color='red' />
+      tabBarIcon: () => <FontAwesome name='user' size={25} color='#0564A4' />
     }
   }
 });

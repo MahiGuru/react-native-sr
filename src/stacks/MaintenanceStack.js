@@ -10,10 +10,7 @@ console.disableYellowBox = true;
 const MaintenanceStack = createStackNavigator(
   {
     RequestType: {
-      screen: RequestTypeScreen,
-      navigationOptions: () => ({
-        headerBackTitle: null
-      })
+      screen: RequestTypeScreen
     },
     Scan: {
       screen: ScanScreen,
@@ -22,16 +19,10 @@ const MaintenanceStack = createStackNavigator(
       })
     },
     Task: {
-      screen: TaskScreen,
-      navigationOptions: () => ({
-        headerTitle: null
-      })
+      screen: TaskScreen 
     },
     Equipment: {
-      screen: EquipmentScreen,
-      navigationOptions: () => ({
-        headerTitle: null
-      })
+      screen: EquipmentScreen 
     },
     TakePicture: {
       screen: TakePictureScreen,
@@ -45,6 +36,13 @@ const MaintenanceStack = createStackNavigator(
     headerMode: 'screen',
     mode: 'modal',
     defaultNavigationOptions: {
+      headerStyle: {
+        backgroundColor: '#f4511e',
+      },
+      headerTintColor: '#fff',
+      headerTitleStyle: {
+        fontWeight: 'bold',
+      },
       gesturesEnabled: false
     }
   }
