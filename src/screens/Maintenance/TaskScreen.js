@@ -18,15 +18,19 @@ import {
   Icon,
   Body,
   View,
-  StyleProvider
+  StyleProvider,
+  Card,
+  CardItem
 } from "native-base";
 import PrimaryButton from "../../utils/Button";
+import { TouchableOpacity } from "react-native-gesture-handler";
 class TaskScreen extends Component {
 
 
   constructor(props){
     super(props);
-    this.requestTypeId; 
+    const {state} = this.props.navigation;
+    this.requestId = state.params ? state.params.requestId : null;
   }
 
   static navigationOptions = ({ navigation, navigationOptions }) => {
@@ -37,39 +41,41 @@ class TaskScreen extends Component {
     };
   };
   componentDidMount(){
-    this.props.getTasks();
+    this.props.getTasks(this.requestId);
+  }
+  componentWillUnmount(){
+    console.log("COMPONENT UNMOUNT");
+    this.props.tasks = null;
   }
   render() {
-    const mapListItems = (item) => {
-      return ( 
-        <ListItem style={styles.container} icon onPress={() => { 
-          this.props.navigation.navigate("Task", {
-            itemId: 86,
-            otherParam: 'anything you want here',
-          })
-        }}>
-            <Body style={{flex: 0.8, padding:20, boxSizing:'border-box'}}>
-                <Text style={{fontSize: 14}}>{this.requestTypeId} - {item.label}</Text>
-            </Body>
-            <Right style={{flex:0.2, padding:20, boxSizing:'border-box'}}>
-                <Ionicons name='ios-arrow-forward' size={25}/>
-            </Right>
-        </ListItem>
-      );
-}
-
+    const mapListItems = (data) => {
+          return ( 
+            <TouchableOpacity  onPress={() => {
+                this.props.navigation.navigate("Equipment", {
+                  requestId: data.item.id,
+                  otherParam: 'Equipment',
+                }) }}>
+                <CardItem style={styles.container} >  
+                    <Body style={{flex: 0.8}}>
+                        <Text style={{fontSize: 14}}>{data.item.label}</Text>
+                    </Body>
+                    <Right style={{flex:0.2}}>
+                        <Ionicons name='ios-arrow-forward' size={25}/>
+                    </Right>
+              </CardItem>
+            </TouchableOpacity>
+          );
+    }
     return (
       <Container>
-        <Content> 
-        <Text>{this.requestTypeId}</Text>
-          <List style={{marginTop:10, padding:10}}>
-            {this.props.tasks ? (<List dataArray={this.props.tasks}
+        <Content>  
+          {this.props.tasks ? <Card transparent dataArray={this.props.tasks} 
             renderRow={(data) =>
-              mapListItems(data)}>
-          </List>) : null}
-          </List>
+                mapListItems(data)}>
+            </Card> : null 
+          }
         </Content>
-      </Container>
+      </Container>    
     );
   }
 } 

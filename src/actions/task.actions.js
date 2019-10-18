@@ -2,10 +2,10 @@ import axios from 'axios';
 import Storage from '../store/storage';
 import { getCredentialsWithUrls} from '../core/common/common.service';
 
-export const task_action_creator = () => {
+export const task_action_creator = (requestId) => {
     return async (dispatch, getState) => {
         console.log("INSIDE ACTION TASK");
-        tasks = await getTaskList(1);
+        tasks = await getTaskList(requestId);
         console.log('TASK >>>>> ', tasks);
         dispatch(fetch_users(tasks.data))
          

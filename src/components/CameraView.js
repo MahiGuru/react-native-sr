@@ -10,7 +10,6 @@ class CameraScreen extends Component {
     this.state = {
       cameraImage: null
     };
-    this.snap = this.snapPic.bind(this);
   }
   state = {
     hasCameraPermission: null,
@@ -22,7 +21,10 @@ class CameraScreen extends Component {
     this.getPermissionsAsync();
   }
   takePicture = async () => {
-    this.camera.takePictureAsync({base64: true, quality: 0.3}).then(data => {
+    console.log("OUTSIDE ");
+
+    this.camera.takePictureAsync({base64: true, quality: 0.3, skipProcessing: false}).then(data => {
+      console.log("INSIDE ", data);
       this.props.cameraPictureUpdate(data);
     });
   };
@@ -30,12 +32,9 @@ class CameraScreen extends Component {
     const { status } = await Permissions.askAsync(Permissions.CAMERA);
     this.setState({ hasCameraPermission: status === 'granted' });
   };
-  snapPic = async () => {
-    if (this.camera) {
-      let photo = await this.camera.takePictureAsync({base64: true});
-      console.log('SNAP', photo);
-    }
-  };
+  closeCamera = () => {
+    this.props.closeCamera(true);
+  }
   render() {
     const { hasCameraPermission, scanned } = this.state;
     if (hasCameraPermission === null) {
@@ -45,8 +44,7 @@ class CameraScreen extends Component {
       return <Text>No access to camera</Text>;
     }
     return (
-      <View style={{ flex: 1 }}>
-        <View style={{ flex: 1 }}>
+      <View style={{ flex: 1 }}> 
           <Camera
             ref={cam => {
               this.camera = cam;
@@ -61,12 +59,12 @@ class CameraScreen extends Component {
                 flexDirection: 'row'
               }}
             >
-              <View style={{ flex: 1 }}>
+              <View style={{ flex: 1, flexDirection: "row", justifyContent:'center'}}>
                 <TouchableOpacity
                   style={{
-                    flex: 0.1,
-                    alignSelf: 'flex-end',
-                    alignItems: 'center'
+                    flex: 1,
+                    justifyContent: 'center', alignSelf:'flex-end' ,
+                    alignItems: 'center', minHeight: 100, backgroundColor: '#004796'
                   }}
                   onPress={() => {
                     this.setState({
@@ -85,9 +83,9 @@ class CameraScreen extends Component {
                 </TouchableOpacity>
                 <TouchableOpacity
                   style={{
-                    flex: 0.1,
-                    alignSelf: 'flex-end',
-                    alignItems: 'center'
+                    flex: 2,
+                    justifyContent: 'center', alignSelf:'flex-end' ,
+                    alignItems: 'center', minHeight: 100, backgroundColor: 'purple'
                   }}
                   onPress={() => this.takePicture()}
                 >
@@ -96,11 +94,24 @@ class CameraScreen extends Component {
                   >
                     TAKE PICTURE
                   </Text>
-                </TouchableOpacity>
+                </TouchableOpacity> 
+                <TouchableOpacity
+                  style={{
+                    flex: 1,
+                    justifyContent: 'center', alignSelf:'flex-end' ,
+                    alignItems: 'center',   minHeight: 100, backgroundColor: '#004796'
+                  }}
+                  onPress={() => this.closeCamera()}
+                >
+                  <Text
+                    style={{ fontSize: 18, marginBottom: 10, color: 'white' }}
+                  >
+                    Cancel
+                  </Text>
+                </TouchableOpacity> 
               </View>
             </View>
-          </Camera>
-        </View>
+          </Camera> 
       </View>
     );
   }

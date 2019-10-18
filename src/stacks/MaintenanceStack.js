@@ -32,12 +32,12 @@ const MaintenanceStack = createStackNavigator(
     }
   },
   {
-    initialRouteName: 'RequestType',
+    initialRouteName: 'Equipment',
     headerMode: 'screen',
     mode: 'modal',
     defaultNavigationOptions: {
       headerStyle: {
-        backgroundColor: '#f4511e',
+        backgroundColor: '#004796',
       },
       headerTintColor: '#fff',
       headerTitleStyle: {

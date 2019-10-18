@@ -18,64 +18,49 @@ import {
   Icon,
   Body,
   View,
-  StyleProvider
+  StyleProvider,
+  Card,
+  CardItem
 } from "native-base";
 import PrimaryButton from "../../utils/Button";
+import { TouchableOpacity } from "react-native-gesture-handler";
 class RequestTypeScreen extends Component {
   static navigationOptions = {
-    title: 'Home',
+    title: 'Request Types',
   };
-  constructor(props) {
-    super(props);
-  }
-  
   async componentDidMount() {
     await this.props.getRequestTypes();
   }
 
   render() {
-    const mapListItems = (item) => {
-            return ( 
-              <ListItem style={styles.container} icon onPress={() => { 
-                this.props.navigation.navigate("Task", {
-                  requestId: item.id,
-                  otherParam: 'anything you want here',
-                })
-              }}>
-                  <Body style={{flex: 0.8, padding:20, boxSizing:'border-box'}}>
-                      <Text style={{fontSize: 14}}>{item.label}</Text>
+    const mapListItems = (data) => {
+        return (
+          <TouchableOpacity  onPress={() => {
+              this.props.navigation.navigate("Task", {
+                requestId: data.item.id,
+                otherParam: 'anything you want here',
+              }) }}>
+              <CardItem style={styles.container} >  
+                  <Body style={{flex: 0.8}}>
+                      <Text style={{fontSize: 14}}>{data.item.label}</Text>
                   </Body>
-                  <Right style={{flex:0.2, padding:20, boxSizing:'border-box'}}>
+                  <Right style={{flex:0.2}}>
                       <Ionicons name='ios-arrow-forward' size={25}/>
                   </Right>
-              </ListItem>
-            );
+            </CardItem>
+        </TouchableOpacity>
+        );
     }
 
     return (
       <Container>
         <Content> 
-          <List style={{marginTop:10, padding:10}}>
-            {this.props.requestTypes ? (<List dataArray={this.props.requestTypes}
+          {this.props.requestTypes ? <Card transparent dataArray={this.props.requestTypes} 
             renderRow={(data) =>
-              mapListItems(data)}>
-          </List>) : null}
-          </List>
+                mapListItems(data)}>
+            </Card> : null 
+          }
         </Content>
-        <PrimaryButton
-          title="GO TO Task"
-          onPress={() => { 
-            this.props.navigation.navigate("Task", {
-              requestId: 55,
-              otherParam: 'anything you want here',
-            })
-          }}
-          style={{
-            marginHorizontal: 15,
-            paddingVertical: 30,
-            marginTop: 20
-          }}
-        />
       </Container>     
     );
   }
