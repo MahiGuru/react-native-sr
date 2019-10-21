@@ -1,19 +1,69 @@
 import axios from 'axios';
-import Storage from '../store/storage';
 import { getCredentialsWithUrls} from '../core/common/common.service';
-import CryptoJS from "react-native-crypto-js"; 
 import * as Crypto from 'expo-crypto';
-
+import { Alert } from 'react-native';
+import {AssetsKeys } from '../core/constants/assets-keys';
 export const asset_action_creator = (qrCode) => {
     return async (dispatch, getState) => {
       console.log("inside ACTIOND", qrCode);
         const hashedQrCodeKey = await generateQrcodeKey(qrCode);
         console.log("INSIDE ACTION CAN >>>> ", hashedQrCodeKey);
-        assetInfo = await getAssetDetails(hashedQrCodeKey);
-        console.log('ASSET DETAILS >>>>> ', assetInfo);
-        dispatch(fetch_qrcode(assetInfo));
+        assetInfo = await readQrCode(hashedQrCodeKey);
+        console.log('ASSET DETAILS >>>>> ', assetInfo.data);
+        if(assetInfo) {
+          dispatch(fetch_asset(assetInfo.data));
+          const assetDetails = await getAssetDetails(assetInfo.data.assetId, assetInfo.data.assetType);          
+          dispatch(fetch_asset_details(assetDetails.data));
+        }else{
+          alertInvalidScan();
+        }
     }
 } 
+
+const getAssetDetails = async (assetId, assetType) => {
+  console.log("ASSET ID AND TYPE >>>>>>> ", assetId, assetType);
+  const assetTypeAndParam = getAssetTypeAndParam(assetType);
+  console.log(assetTypeAndParam, " <<<<<< assetTypeAndParam >>>> ");
+  const endPoint = await getCredentialsWithUrls(assetTypeAndParam[0], true, assetTypeAndParam[1], assetId);
+  return axios.get(endPoint);
+}
+
+const getAssetTypeAndParam = (assetType) => {
+  let urlType;
+  let paramName;
+  switch (assetType) {
+    case AssetsKeys.Equipment:
+      urlType = AssetsKeys.EquipmentUrlType;
+      paramName = AssetsKeys.EquipmentParamName;
+      break;
+
+    case AssetsKeys.Building:
+      urlType = AssetsKeys.BuildingUrlType;
+      paramName = AssetsKeys.BuildingParamName;
+      break;
+
+    case AssetsKeys.Zone:
+      urlType = AssetsKeys.ZoneUrlType;
+      paramName = AssetsKeys.ZoneParamName;
+      break;
+
+    case AssetsKeys.Local:
+      urlType = AssetsKeys.LocalUrlType;
+      paramName = AssetsKeys.LocalParamName;
+      break;
+  }
+  return [urlType, paramName];
+}
+const alertInvalidScan = () => {
+  Alert.alert(
+    'Smart Request',
+    'qrCodeNonReconnu',
+    [
+      {text: 'Scan', onPress: () => console.log('OK Pressed')},
+    ],
+    {cancelable: false},
+  );
+}
 
 const generateQrcodeKey = async (qrCode) => {
   console.log("BEFORE >>> ", qrCode);
@@ -31,7 +81,7 @@ const generateQrcodeKey = async (qrCode) => {
   }
   return '';
 }
-const getAssetDetails = async (hashedQrCodeKey) => { 
+const readQrCode = async (hashedQrCodeKey) => { 
   const url = await getCredentialsWithUrls('getAssetByQrcode', true, 'qrcodeKey', hashedQrCodeKey);
   console.log("MYURL", url);
   return axios.get(url).then(res => {
@@ -42,13 +92,18 @@ const getAssetDetails = async (hashedQrCodeKey) => {
   });
 }
 
-export const fetch_qrcode = (data) => {
+export const fetch_asset = (data) => {
     return {
-      type: "FETCH_QRCODE",
+      type: "FETCH_ASSET",
       data
     };
   };
-  
+  export const fetch_asset_details = (data) => {
+    return {
+      type: "FETCH_ASSET_DETAILS",
+      data
+    };
+  };
   export const receive_post = post => {
     return {
       type: "FETCHED_USER",

@@ -1,17 +1,22 @@
 import { combineReducers } from 'redux';
 import userReducer from './user.reducer';
 import requestTypesReducer from './request-types.reducer';
-import authenticateReducer from './authenticate.reducer';
+import vocabularyReducer from './vocabulary.reducer';
 import tasksReducer from './tasks.reducer';
-import assetReducer from './asset.reducer';
+import {assetReducer, assetDetailsReducer} from './asset.reducer';
+import equipmentsReducer from './equipments.reducer';
+import takepictureReducer from './takepicture.reducer';
 const INITIAL_STATE = {
   current: []
 };
 
 export const rootReducer = combineReducers({
-  authenticate: authenticateReducer,
-  tasks: tasksReducer,
-  users: userReducer,
+  vocabulary: vocabularyReducer,
   asset: assetReducer,
-  requestTypes: requestTypesReducer
+  assetDetails: assetDetailsReducer,
+  user: userReducer,
+  requestTypes: requestTypesReducer,
+  tasks: tasksReducer,
+  equipments: equipmentsReducer,
+  pictures: takepictureReducer
 });

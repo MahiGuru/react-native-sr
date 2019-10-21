@@ -1,13 +1,23 @@
 const initialState = {}
 
-export default assetReducer = (state = initialState, action) => {
+export const assetReducer = (state = initialState, action) => {
     switch (action.type) {
-        case "FETCH_QRCODE":
-            console.log("FROM QRCODE", action);
-            return { ...state, ...action };
+        case "FETCH_ASSET":
+            console.log("FROM FETCH_ASSET", action);
+            return { ...state, ...action.data };
 
         default:
             return state
     }
 }
 
+export const assetDetailsReducer = (state = initialState, action) => {
+    switch (action.type) {
+        case "FETCH_ASSET_DETAILS":
+                console.log("FROM FETCH_ASSET_DETAILS", action);
+                return { ...state, ...action.data };
+
+        default:
+            return state
+    }
+}

@@ -27,12 +27,11 @@ const MaintenanceStack = createStackNavigator(
     TakePicture: {
       screen: TakePictureScreen,
       navigationOptions: () => ({
-        headerTitle: null
       })
     }
   },
   {
-    initialRouteName: 'Equipment',
+    initialRouteName: 'TakePicture',
     headerMode: 'screen',
     mode: 'modal',
     defaultNavigationOptions: {

@@ -24,9 +24,6 @@ class LoginScreen extends React.Component {
 
   render() {
     const { navigate } = this.props.navigation;
-    const navigateToScreen = () => {
-      navigate('Scan', { name: 'Jane' });
-    };
     return (
       <View style={{ flex: 1, flexDirection: 'column' }}>
         <View style={{ flex: 1, height: 100, backgroundColor: '#0564A4' }}>
@@ -65,7 +62,6 @@ const styles = StyleSheet.create({
  
 
 const mapStateToProps = (state) => {
-  console.log('requestTypes', state);
   return { 
     vocabulary: state.authenticate
   }

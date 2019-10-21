@@ -4,42 +4,32 @@ import { task_action_creator } from "../../actions/task.actions";
 import { bindActionCreators } from "redux";
 import { connect } from "react-redux";
 
-import { Ionicons, FontAwesome, MaterialCommunityIcons, Foundation } from '@expo/vector-icons';
+import { Ionicons } from '@expo/vector-icons';
 import {
   Container,
-  Header,
   Content,
-  List,
-  ListItem,
   Text,
-  icon,
-  Left,
   Right,
-  Icon,
   Body,
-  View,
-  StyleProvider,
   Card,
   CardItem
 } from "native-base";
-import PrimaryButton from "../../utils/Button";
 import { TouchableOpacity } from "react-native-gesture-handler";
 class TaskScreen extends Component {
-
+  static navigationOptions = ({navigation}) => {
+    const { params } = navigation.state;
+    this.requestTypeId = navigation.getParam('requestId');
+    return { 
+      title: params ? params.title: ''
+    }
+  };
 
   constructor(props){
     super(props);
     const {state} = this.props.navigation;
     this.requestId = state.params ? state.params.requestId : null;
   }
-
-  static navigationOptions = ({ navigation, navigationOptions }) => {
-    console.log(navigationOptions, navigation.getParam('otherParam'));
-    this.requestTypeId = navigation.getParam('requestId');
-    return {
-      title: navigation.getParam('otherParam', 'TASK Details'),
-    };
-  };
+ 
   componentDidMount(){
     this.props.getTasks(this.requestId);
   }
@@ -48,12 +38,14 @@ class TaskScreen extends Component {
     this.props.tasks = null;
   }
   render() {
+    const { params } = this.props.navigation.state;
     const mapListItems = (data) => {
           return ( 
             <TouchableOpacity  onPress={() => {
+              console.log("CLICKED ", data);
                 this.props.navigation.navigate("Equipment", {
-                  requestId: data.item.id,
-                  otherParam: 'Equipment',
+                  domainId: data.item.domainId,
+                  title: params.title,
                 }) }}>
                 <CardItem style={styles.container} >  
                     <Body style={{flex: 0.8}}>

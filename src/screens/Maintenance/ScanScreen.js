@@ -73,6 +73,12 @@ class ScanScreen extends Component {
         /> :  
           null
         } 
+        {
+          this.props.assetDetails && this.props.assetDetails.id ? this.props.navigation.navigate("RequestType", {
+            title: this.props.assetDetails.label
+          }) : null
+        }
+
         </Container>
         <Container> 
           <PrimaryButton
@@ -87,7 +93,6 @@ class ScanScreen extends Component {
   handleBarCodeScanned = ({ type, data }) => {
     this.setState({ scanned: true });    
     this.props.assetAction(data);
-    alert(`Bar code with type ${type} and data ${data} has been scanned!`);
   };
 }
 const styles = StyleSheet.create({
@@ -102,10 +107,11 @@ const styles = StyleSheet.create({
   }
 });
 
-const mapStateToProps = ({asset}) => {
-  console.log('asset', asset)
+const mapStateToProps = ({asset, assetDetails}) => {
+  console.log('SCAN SCREEN >>> ', assetDetails, asset);
   return {
-    assets: asset
+    asset: asset,
+    assetDetails: assetDetails
   }
 };
 const mapDispatchToProps = (dispatch) => {

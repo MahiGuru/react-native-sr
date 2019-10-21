@@ -2,10 +2,10 @@ const initialState = {
 
 }
 
-export default requestTypeReducer = (state = initialState, action) => {
+export default equipmentReducer = (state = initialState, action) => {
     switch (action.type) {
 
-        case "FETCH_REQUEST_TYPES":
+        case "FETCH_EQUIPMENTS":
             return { ...state, ...action };
 
         default:

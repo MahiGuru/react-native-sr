@@ -22,23 +22,27 @@ import {
   Card,
   CardItem
 } from "native-base";
-import PrimaryButton from "../../utils/Button";
 import { TouchableOpacity } from "react-native-gesture-handler";
 class RequestTypeScreen extends Component {
-  static navigationOptions = {
-    title: 'Request Types',
+  static navigationOptions = ({navigation}) => {
+    const { params } = navigation.state;
+    return { 
+      title: params ? params.title: ''
+    }
   };
   async componentDidMount() {
     await this.props.getRequestTypes();
+    console.log(this.props);
   }
 
   render() {
+    const { params } = this.props.navigation.state;
     const mapListItems = (data) => {
         return (
           <TouchableOpacity  onPress={() => {
               this.props.navigation.navigate("Task", {
                 requestId: data.item.id,
-                otherParam: 'anything you want here',
+                title: params.title,
               }) }}>
               <CardItem style={styles.container} >  
                   <Body style={{flex: 0.8}}>
@@ -79,10 +83,13 @@ const styles = StyleSheet.create({
   }
 }); 
  
-function mapStateToProps({ requestTypes, users }) {
-  console.log(requestTypes, users);
+function mapStateToProps(state) {
+  console.log("REQUEST SCREEN STATE >>>>>> ", state);
   return {
-    requestTypes: requestTypes.data
+    requestTypes: state.requestTypes.data,
+    user: state.user,
+    asset: state.asset,
+    assetDetails: state.assetDetails
   };
 }
 
