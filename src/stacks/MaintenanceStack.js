@@ -4,6 +4,7 @@ import TaskScreen from '../screens/Maintenance/TaskScreen';
 import EquipmentScreen from '../screens/Maintenance/EquipmentScreen';
 import TakePictureScreen from '../screens/Maintenance/TakePictureScreen';
 import ScanScreen from '../screens/Maintenance/ScanScreen';
+import CreateWorkorderScreen from '../screens/Maintenance/CreateWorkorderScreen';
 
 console.disableYellowBox = true;
 
@@ -27,6 +28,12 @@ const MaintenanceStack = createStackNavigator(
     TakePicture: {
       screen: TakePictureScreen,
       navigationOptions: () => ({
+      })
+    },
+    CreateWorkorder: {
+      screen: CreateWorkorderScreen,
+      navigationOptions: () => ({
+        header: null
       })
     }
   },

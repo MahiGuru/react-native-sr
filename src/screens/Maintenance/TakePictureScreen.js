@@ -101,7 +101,7 @@ class TakePictureScreen extends Component {
             <View style={{flex: 1, justifyContent:'flex-end', margin:20}}>
                 <PrimaryButton
                     title="Suveneir"
-                    onPress={() => this.props.navigation.navigate('TakePicture')}
+                    onPress={() => this.props.navigation.navigate('CreateWorkorder')}
                     style={{
                       marginHorizontal: 15,
                       paddingVertical: 30,
