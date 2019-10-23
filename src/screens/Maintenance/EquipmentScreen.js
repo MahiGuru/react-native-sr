@@ -7,7 +7,9 @@ import {
   Right,
   Body,
   Card,
-  CardItem
+  CardItem,
+  Header,
+  Button
 } from "native-base";
 import { TouchableOpacity } from "react-native-gesture-handler";
 import { bindActionCreators } from 'redux';
@@ -32,7 +34,8 @@ class EquipmentScreen extends Component {
   render() {
     const { params } = this.props.navigation.state;
     const mapListItems = (data) => {
-      return ( 
+      return (
+        
         <TouchableOpacity  onPress={() => {
           console.log("CLICKED ", data);
             this.props.navigation.navigate("TakePicture", {
@@ -56,6 +59,11 @@ class EquipmentScreen extends Component {
             renderRow={(data) =>
                 mapListItems(data)}>
             </Card> : null 
+          }
+          {(this.props.equipments && this.props.equipments.length <= 0) ?
+            (<Button>
+              <Text style={{color:'black', fontSize: 18}}>Skip</Text>
+            </Button>) : null
           }
         </Content>
       </Container>

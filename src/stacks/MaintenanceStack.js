@@ -28,6 +28,7 @@ const MaintenanceStack = createStackNavigator(
     TakePicture: {
       screen: TakePictureScreen,
       navigationOptions: () => ({
+        header: null
       })
     },
     CreateWorkorder: {
@@ -38,7 +39,7 @@ const MaintenanceStack = createStackNavigator(
     }
   },
   {
-    initialRouteName: 'TakePicture',
+    initialRouteName: 'Scan',
     headerMode: 'screen',
     mode: 'modal',
     defaultNavigationOptions: {

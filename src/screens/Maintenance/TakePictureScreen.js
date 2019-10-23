@@ -1,13 +1,14 @@
 import React, { Component } from 'react';
 import { View, Image, StyleSheet } from 'react-native';
-import { Text, Container, Content, Card, CardItem, H3, Textarea } from 'native-base';
+import { Text, Container, Content, Card, CardItem, H3, Textarea, Header, Left, Button, Body, Title, Right } from 'native-base';
 import CameraView from '../../components/CameraView';
 import { withNavigationFocus } from 'react-navigation';
 import Photocard from '../../components/Photo-card.component'; 
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import PrimaryButton from '../../utils/Button';
-import { view_picture_action_creator, detail_picture_action_creator } from '../../actions/takepicture.actions';
+import { view_picture_action_creator, detail_picture_action_creator, description_action_creator } from '../../actions/takepicture.actions';
+import { Ionicons } from '@expo/vector-icons';
 
 class TakePictureScreen extends Component {
   static navigationOptions = ({ navigation }) => {
@@ -72,8 +73,17 @@ class TakePictureScreen extends Component {
           </CameraView> 
         ) : (
           <Container style={{flex:1, flexDirection:'column', justifyContent:'space-between'}}>
+          <Header transparent style={{backgroundColor:'#004796'}}>
+              <Left>
+                <Button transparent>
+                <Ionicons name='md-arrow-round-back' size={24} color={'white'} />
+                </Button>
+              </Left>
+              <Body>
+                <Text></Text>
+              </Body>
+            </Header>
             <Text  style={{color:'#FFFFFF', marginTop:-10, backgroundColor:'#004796', padding:20, minHeight: 150, marginBottom: -80}}>
-            Header Three
             </Text>           
             <View style={{flex: 1, flexDirection: 'row', marginHorizontal:20}}>
                 <View style={{height: 180, flex:1}}>
@@ -94,9 +104,11 @@ class TakePictureScreen extends Component {
                         title={this.props.vocabulary['vuedEnsemble']}
                     ></Photocard>
                 </View> 
-            </View> 
+            </View>  
             <View style={{flex: 1, flexDirection: 'column', marginHorizontal:20}}>
-                <Textarea rowSpan={5} bordered placeholder="Textarea" />
+                <Text style={{marginVertical:10, fontSize: 16}}>{ this.props.vocabulary['commentezLeProbleme']}</Text>
+                <Textarea rowSpan={5} bordered placeholder="Textarea" onChangeText={(txt) => this.props.descriptionChange(txt)} />
+                <Text>{this.props.description ?  this.props.description: null}</Text>
             </View>
             <View style={{flex: 1, justifyContent:'flex-end', margin:20}}>
                 <PrimaryButton
@@ -125,7 +137,8 @@ class TakePictureScreen extends Component {
 function mapStateToProps(state) {
   console.log("TAKE PICTURE SCREEN STATE >>>>>> ", state);
   return {
-    vocabulary: state.vocabulary
+    vocabulary: state.vocabulary,
+    description: state.pictures.description
   };
 }
 
@@ -133,7 +146,8 @@ function mapDispatchToProps(dispatch) {
   return bindActionCreators(
     {
       view_picture_action : view_picture_action_creator,
-      detail_picture_action : detail_picture_action_creator
+      detail_picture_action : detail_picture_action_creator,
+      descriptionChange : description_action_creator
     },
     dispatch
   );

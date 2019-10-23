@@ -13,7 +13,12 @@ export const detail_picture_action_creator = (data) => {
     dispatch(fetch_detail_picture(data))
   }
 }
-
+ 
+export const description_action_creator = (data) => {
+  return (dispatch, getState) => {
+    dispatch(fetch_description(data))
+  }
+}
 export const fetch_view_picture = (data) => {
   return {
     type: "FETCH_VIEW_PICTURE",
@@ -28,6 +33,12 @@ export const fetch_detail_picture = (data) => {
   };
 };
 
+export const fetch_description = (data) => {
+  return {
+    type: "FETCH_DESCRIPTION",
+    data
+  };
+};
   export const receive_post = post => {
     return {
       type: "FETCHED_USER",
